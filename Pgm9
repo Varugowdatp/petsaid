@@ -1,0 +1,27 @@
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn import metrics
+import pandas as pd
+
+# Load dataset
+iris = load_iris()
+X = iris.data
+y = iris.target
+
+# Split dataset
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=3)
+
+# Train model
+rf = RandomForestClassifier(n_estimators=100)
+rf.fit(X_train, y_train)
+
+# Predict
+y_pred = rf.predict(X_test)
+
+# Accuracy
+print("Random Forest model accuracy:", metrics.accuracy_score(y_test, y_pred) * 100)
+
+# Display table
+df = pd.DataFrame({'Actual': y_test, 'Predicted': y_pred})
+print(df)
